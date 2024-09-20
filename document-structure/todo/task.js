@@ -2,6 +2,11 @@ const form = document.querySelector('.tasks__control');
 const tasksList = document.querySelector('.tasks__list');
 const tasksInput = document.querySelector('.tasks__input');
 const arrStor = [];
+console.log(localStorage.item)
+localStorage.removeItem('item')
+JSON.parse(localStorage.getItem('item'))?.forEach(e => {
+    arrStor.push(e);
+});
 
 /*функция вставки элемента*/
 function insertElem(e) {
@@ -14,12 +19,13 @@ function insertElem(e) {
 /*функция обновления локального хранилища*/
 function updStorage() {
     localStorage.setItem('item', JSON.stringify(arrStor));
-}
+    }
 
 /*добавляем элементы сохраненые в хранилище после загрузки всей страницы (window.onload)*/
-window.onload = () => {
+window.onload = event => {
+    event.preventDefault();
     const arrFromStorage = JSON.parse(localStorage.getItem('item')); 
-    if (arrFromStorage.length) {
+    if (arrFromStorage?.length) {
         for (let elem of arrFromStorage) {
             insertElem(elem);
         }
