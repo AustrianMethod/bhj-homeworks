@@ -2,8 +2,6 @@ const form = document.querySelector('.tasks__control');
 const tasksList = document.querySelector('.tasks__list');
 const tasksInput = document.querySelector('.tasks__input');
 const arrStor = [];
-console.log(localStorage.item)
-localStorage.removeItem('item')
 JSON.parse(localStorage.getItem('item'))?.forEach(e => {
     arrStor.push(e);
 });

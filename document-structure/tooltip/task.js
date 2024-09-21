@@ -9,6 +9,7 @@ body.addEventListener('click', event => {
             const goalSize = event.target.getBoundingClientRect();
             event.target.insertAdjacentHTML('afterEnd',`<div class="tooltip">${event.target.title}</div>`);
             document.querySelector('.tooltip').style.left = goalSize.left + 'px';
+            document.querySelector('.tooltip').style.top = goalSize.top + goalSize.height + 'px';
         }
 
         const tip = document.querySelector('.tooltip'); 
