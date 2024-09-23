@@ -12,7 +12,7 @@
     Number(event.target.closest('.product__quantity-value').texContent) > 0 (qVal)
       qVal = Number(qVal) + 1
     если на минус cList.contains(product__quantity-control_deс) и 
-    Number(qVal) > 0:
+    Number(qVal) > 1:
       qVal = Number(qVal) - 1
 4 если обработчик сработал на Добавить в корзину (product__add): 
   1 найти изображение img = event.target.closest('.cart__product-image').src
@@ -41,10 +41,10 @@ container.addEventListener('click', event => {
   if (cList.contains('product__quantity-control_dec') || cList.contains('product__quantity-control_inc')) {
 
     /*определяем + или -*/
-    if (cList.contains('product__quantity-control_inc') && Number(qVal.textContent) >= 0) {
+    if (cList.contains('product__quantity-control_inc') && Number(qVal.textContent) > 0) {
          qVal.textContent = +qVal.textContent + 1;
-    } else if (cList.contains('product__quantity-control_dec') && Number(qVal.textContent) >= 0) {
-      if (qVal.textContent != 0) qVal.textContent = +qVal.textContent - 1;
+    } else if (cList.contains('product__quantity-control_dec') && Number(qVal.textContent) > 1) {
+         qVal.textContent = +qVal.textContent - 1;
     }    
   }
 
@@ -60,14 +60,10 @@ container.addEventListener('click', event => {
               <div class="cart__product-count">${qVal.textContent}</div>
            </div>`);
 
-      /*если товара есть в корзине но надо увеличить или уменьшить*/ 
-      } else { 
-        carts.querySelector(`[data-id="${dataId}"] .cart__product-count`).textContent = qVal.textContent;
-      }
-      
-      /*если нужно убрать товар из корзины*/ 
-      if (Number(carts.querySelector(`[data-id="${dataId}"] .cart__product-count`).textContent) === 0) {
-        carts.querySelector(`[data-id="${dataId}"]`).remove();
+      /*если товар есть в корзине но надо увеличить*/ 
+      } else {
+        const localLink = carts.querySelector(`[data-id="${dataId}"] .cart__product-count`);
+        localLink.textContent = Number(localLink.textContent) + Number(qVal.textContent);
       }
   }
 })

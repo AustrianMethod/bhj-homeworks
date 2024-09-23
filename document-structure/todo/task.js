@@ -1,3 +1,5 @@
+(() => {
+
 const form = document.querySelector('.tasks__control');
 const tasksList = document.querySelector('.tasks__list');
 const tasksInput = document.querySelector('.tasks__input');
@@ -33,7 +35,7 @@ window.onload = event => {
 /*добавляем элементы по нажатию кнопки/клавиши enter*/
 form.addEventListener('submit', event => {
     event.preventDefault();
-    if (tasksInput.value !== '') {
+    if (tasksInput.value.trim() !== '') {
         insertElem(tasksInput.value);
         arrStor.push(tasksInput.value);
         updStorage();
@@ -51,3 +53,4 @@ tasksList.addEventListener('click', event => {
     }
 });
 
+})();
