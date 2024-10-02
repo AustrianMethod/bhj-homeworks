@@ -1,6 +1,3 @@
-
-// deleteCookie('click');
-
 const popup = document.querySelector( '.modal' );
 if( !getCookie('click') ) {
         popup.classList.add('modal_active');
@@ -13,10 +10,6 @@ popup.onclick = e => {
         setCookie('click', 'itWas');
     }
 }
-
-
-
-
 
 
 
@@ -56,13 +49,4 @@ function setCookie(name, value, options = {}) {
     }
   
     document.cookie = updatedCookie;
-  }
-
-
-
-// удаляет cookie
-function deleteCookie(name) {
-    setCookie(name, "", {
-      'max-age': -1
-    })
   }

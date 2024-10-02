@@ -1,10 +1,13 @@
 const form = document.getElementById( 'signin__form' );
+const signIn = document.getElementById( 'signin' ); 
+const signOutBtn = document.getElementById( 'signout__btn' ); 
 const user = document.getElementById( 'user_id' );
 const welcome = document.getElementById( 'welcome' );
 
 window.onload = () => {
-    if(localStorage.userId) {
-        user.textContent = localStorage.userId; 
+    if( localStorage.getItem('userId') !== 'undefined' ) {
+        user.textContent = localStorage.getItem('userId');
+        signIn.classList.remove('signin_active'); 
         welcome.classList.add('welcome_active');
     }
 }
@@ -15,21 +18,29 @@ form.addEventListener('submit', e => {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', form.action);
     xhr.onload = () => {
-        if (JSON.parse(xhr.response).success !== false && localStorage.userId) {
-            const {success, user_id} = JSON.parse(xhr.responseText);
-            localStorage.userId = user_id;
+        if ( xhr.response.success !== false ) {
+            signIn.classList.remove( 'signin_active' );
+            signOutBtn.style.display = 'block';
+            const { success, user_id } = xhr.response;
+            localStorage.setItem( 'userId', user_id );
             user.textContent = user_id;
-            welcome.classList.add('welcome_active');
+            welcome.classList.add( 'welcome_active' );
             form.reset();
-        } else if (JSON.parse(xhr.response).success === false) {
+        } else if ( xhr.response.success === false ) {
             alert( 'Неверный логин/пароль' );
         }
       };
     xhr.onerror = () => {
-        console.error('Ошибка сети');
+        console.error( 'Ошибка сети' );
     };
+    xhr.responseType = 'json';
     xhr.send(formData);
 })
 
-
+signOutBtn.onclick = () => {
+    localStorage.removeItem( 'userId' );
+    welcome.classList.remove( 'welcome_active' );
+    signOutBtn.style.display = 'none';
+    signIn.classList.add( 'signin_active' );
+}
 

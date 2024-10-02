@@ -11,17 +11,15 @@ const text = document.getElementById('editor');
 const btn = document.querySelector('.clear');
 
 window.onload = () => {
-    if( localStorage.textFromArea ) {
-        text.value = localStorage.textFromArea;
-    } 
-    
+    text.value = localStorage.getItem('textFromArea');
 }
 
 text.oninput = () => {
-    localStorage.textFromArea = text.value.trim();
+    localStorage.setItem('textFromArea', text.value.trim());
 }
 
 btn.onclick = () => {
     text.value = '';
+    localStorage.removeItem('textFromArea');
 }
 
