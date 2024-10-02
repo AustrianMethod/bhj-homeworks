@@ -5,10 +5,12 @@ const user = document.getElementById( 'user_id' );
 const welcome = document.getElementById( 'welcome' );
 
 window.onload = () => {
-    if( localStorage.getItem('userId') !== 'undefined' ) {
+    signOutBtn.style.display = 'none';
+    if( localStorage.getItem('userId') !== null ) {
         user.textContent = localStorage.getItem('userId');
         signIn.classList.remove('signin_active'); 
         welcome.classList.add('welcome_active');
+        signOutBtn.style.display = 'block';
     }
 }
 
